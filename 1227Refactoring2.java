@@ -25,6 +25,19 @@ class Triangle extends Shape {
 	public void draw() { System.out.println("draw triangle"); }
 }
 
+// 2. 도형을 생성하는 팩토리 객체를 도입합니다.
+class ShapeFactory{
+	public static Shape createShape(String cmd) {
+		switch(cmd) {
+		// 3. 변하는 부분 붙여넣기
+		case "1": return new Rect();
+		case "2": return new Circle();
+		case "3": return new Triangle();
+		default: throw new RuntimeException("wrong cmd");
+		}
+	}
+}
+
 class PowerPoint {
 	private static Scanner keyboard = new Scanner(System.in);
 	ArrayList<Shape> shapes = new ArrayList<>();
@@ -32,21 +45,16 @@ class PowerPoint {
 	public void run() {
 		while(true) {
 			String cmd = keyboard.nextLine();
-			switch (cmd) {
-			case "0":
-				for(Shape e : shapes)
+			
+			if(cmd == "0") {
+				for(Shape e:shapes)
 					e.draw();
-				break;
-			case "1":
-				shapes.add(new Rect());
-				break;
-			case "2":
-				shapes.add(new Circle());
-				break;
-			case "3":
-				shapes.add(new Triangle());
-				break;
 			}
+			else {
+				// 4. 변하는 부분은 factory 객체로 대체
+				shapes.add(ShapeFactory.createShape(cmd));
+			}
+			// 1. 변하는 것과 변하지 않는 것을 분리한다.
 		}
 	}
 }
