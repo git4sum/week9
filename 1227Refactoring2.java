@@ -46,7 +46,7 @@ class PowerPoint {
 		while(true) {
 			String cmd = keyboard.nextLine();
 			
-			if(cmd == "0") {
+			if(cmd.equals("0")) {
 				for(Shape e:shapes)
 					e.draw();
 			}
